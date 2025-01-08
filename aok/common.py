@@ -15,5 +15,5 @@ class BaseModelAOK(models.Model):
     """
     class Meta:
         abstract = True # specify this model as an Abstract Model
-        app_label = 'aok'
+#        app_label = 'aok'
 #        db_table = 'aok.' + str(__name__.split('.', 1)[1]).lower()
