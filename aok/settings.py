@@ -77,20 +77,28 @@ WSGI_APPLICATION = 'aok.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+
+# DB definitions when using sqlite3
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     },
-    'django': {
+}
+
+"""
+# DB definitions when using postgresql
+DBHOST = 'localhost'
+DATABASES = {
+    'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'OPTIONS': {
-            "options": "-c search_path=django"
+            "options": "-c search_path=aok"
             },
         'NAME': 'aok',
         'USER': 'svc_django',
         'PASSWORD': 'djangopwd',
-        'HOST': 'localhost',
+        'HOST': DBHOST,
         'PORT': 5432,
     },
     'aok_reader': {
@@ -101,7 +109,7 @@ DATABASES = {
         'NAME': 'aok',
         'USER': 'svc_aok',
         'PASSWORD': 'aokpwd',
-        'HOST': 'localhost',
+        'HOST': DBHOST,
         'PORT': 5432,
     },
     'aok_writer': {
@@ -112,22 +120,12 @@ DATABASES = {
         'NAME': 'aok',
         'USER': 'svc_aok',
         'PASSWORD': 'aokpwd',
-        'HOST': 'localhost',
-        'PORT': 5432,
-    },
-    'aok_migrator': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'OPTIONS': {
-            "options": "-c search_path=aok"
-            },
-        'NAME': 'aok',
-        'USER': 'svc_django',
-        'PASSWORD': 'djangopwd',
-        'HOST': 'localhost',
+        'HOST': DBHOST,
         'PORT': 5432,
     },
 
 }
+"""
 
 DATABASE_ROUTERS = [
     "aok.routers.Router", 

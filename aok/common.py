@@ -13,6 +13,7 @@ class BaseModelAOK(models.Model):
     app_label: aok
     db_table: aok.table_name
     """
+    id =                    models.BigAutoField(primary_key=True, serialize=False, verbose_name='ID')
     class Meta:
         abstract = True # specify this model as an Abstract Model
         app_label = 'aok'

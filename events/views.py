@@ -41,7 +41,7 @@ class Slots(View):
     """
     template = 'events/templates/slots.html'
 
-    def get(self, request):
+    def get(self, request, id):
         """
         Return rendered view with context:
         event, op_date, op_start, op_end, planstart, planend,
@@ -49,20 +49,28 @@ class Slots(View):
         """
         event = Event.objects.filter(pk=id).get()
         now = timezone.now()
-        opend = event.op_slotopendatetime + timedelta(
+        if(event.op_duration):
+            opend = event.op_slotopendatetime + timedelta(
                         hours=int(event.op_duration.strftime("%H")),
                         minutes=int(event.op_duration.strftime("%M"))
                         )
+        else:
+            opend = now
+
         slots_active = " SLOTTAUS KIINNI "
         if opend < now > event.op_slotopendatetime:
             slots_active = " SLOTTAUS AUKI "
 
         roleboxes = event.op_rolebox.all()
-        rolebox = roleboxes.filter(pk=id).get()
-        slots = rolebox.oprole.all()
+        if(roleboxes):
+            rolebox = roleboxes.filter(pk=id).get()
+            if(rolebox):
+                slots = rolebox.oprole.all()
+        else:
+            slots = []
 
         context = {
-            'id': id,
+            'id': 1,
             'event': event,
             'op_date': event.op_startdate,
             'op_start': event.op_starttime,
