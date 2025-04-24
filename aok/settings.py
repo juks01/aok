@@ -85,12 +85,8 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     },
 }
-
-"""
-# DB definitions when using postgresql
-DBHOST = 'localhost'
-DATABASES = {
-    'default': {
+""" These are commented out for simplier use with sqlite3 db.
+    'django': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'OPTIONS': {
             "options": "-c search_path=aok"
@@ -123,7 +119,6 @@ DATABASES = {
         'HOST': DBHOST,
         'PORT': 5432,
     },
-
 }
 """
 
