@@ -15,10 +15,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from aok.views import Main, Members
 from news.views import News
 from events.views import Events, Slots
+from discord_oauth2 import urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,5 +28,6 @@ urlpatterns = [
     path('news/', News.as_view(), name='news'),
     path('events/', Events.as_view(), name='events'),
     path("events/<int:id>/", Slots.as_view(), name="event"),
+    path("oauth2/", include("discord_oauth2.urls")),
 #    path('', views.frontpage, name='main'),
 ]

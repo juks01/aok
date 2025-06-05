@@ -11,23 +11,25 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 import environ
-
-env = environ.Env()
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+env = environ.Env()
+environ.Env.read_env(os.path.join(Path(__file__).resolve().parent, '.env'))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env.str('SECRET_KEY', '')
+SECRET_KEY = env.str("SECRET_KEY", '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool('DEBUG', False)
+DEBUG = env.bool("DEBUG", False)
 
 ALLOWED_HOSTS = ['*']
 
@@ -42,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_bootstrap5',
+    'discord_oauth2',
     'communities',
     'events',
     'news',
@@ -171,3 +174,10 @@ STATIC_ROOT = STATIC_URL
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# For Discord OAuth2 authorization
+DISCORD_API_ENDPOINT = env.str("OAUTH2_API_ENDPOINT", '')
+DISCORD_AUTH_URL = env.str("OAUTH2_AUTH_URL", '')
+DISCORD_CLIENT_ID = env.str("OAUTH2_CLIENT_ID", '')
+DISCORD_CLIENT_SECRET = env.str("OAUTH2_CLIENT_SECRET", '')
+DISCORD_REDIRECT_URI = env.str("OAUTH2_REDIRECT_URI", '')
